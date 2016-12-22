@@ -48,10 +48,11 @@ import com.fd.phantomjsrender.utils.TimeUtils;
  * PhantomJSRender render = new PhantomJSRender(properties);</br>
  * String url = "http://www.sohu.com";</br>
  * Response response = render.render(url, 30000);</br>
- * System.out.println(response.url);
- * System.out.println(response.body);
- * System.out.println(response.status);
- * System.out.println(response.headers);
+ * assert response != null;</br>
+ * System.out.println(response.url);</br>
+ * System.out.println(response.body);</br>
+ * System.out.println(response.status);</br>
+ * System.out.println(response.headers);</br>
  * </p>
  * @author caoliuyi
  *
@@ -417,7 +418,7 @@ public class PhantomJSRender {
         return headers;
     }
     
-    private class RenderTask {
+    public class RenderTask {
         private final CountDownLatch latch;
         private Response response;
         private Exception exception;
@@ -434,7 +435,6 @@ public class PhantomJSRender {
             isDone = new AtomicBoolean(false);
         }
 
-        @SuppressWarnings("unused")
         public Response get() throws InterruptedException {
             latch.await();
             return response;
@@ -629,10 +629,9 @@ public class PhantomJSRender {
         return task;
     }
 
-    public String render(String url, int timeout) throws MaxTotalCountException,
+    public Response render(String url, int timeout) throws MaxTotalCountException,
             InterruptedException, WrongStatusException {
         RenderTask task = render(url, timeout, null);
-        Response response = task.get(timeout, TimeUnit.MILLISECONDS);
-        return response != null ? response.html : null;
+        return task.get(timeout, TimeUnit.MILLISECONDS);
     }
 }
