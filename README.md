@@ -5,17 +5,17 @@
 
 支持卡死检测
 ```java
-PhantomJSProperties properties = new PhantomJSProperties();</br>
-properties.setExecutePath("phantomjs");</br>
-properties.setMaxTabCount(3);</br>
-PhantomJSRender render = new PhantomJSRender(properties);</br>
-String url = "http://www.sohu.com";</br>
-Response response = render.render(url, 30000);<br>
-System.out.println(response.url);<br>
-System.out.println(response.body);<br>
-System.out.println(response.status);<br>
-System.out.println(response.headers);<br>
-render.close();<br>
+PhantomJSProperties properties = new PhantomJSProperties();
+properties.setExecutePath("phantomjs");
+properties.setMaxTabCount(3);
+PhantomJSRender render = new PhantomJSRender(properties);
+String url = "http://www.sohu.com";
+Response response = render.render(url, 30000);
+System.out.println(response.url)；
+System.out.println(response.body);
+System.out.println(response.status);
+System.out.println(response.headers);
+render.close();
 ````
 
 # phantomjs内存泄露问题
